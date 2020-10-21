@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 public class About extends AppCompatActivity {
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +24,18 @@ public class About extends AppCompatActivity {
         ImageView infoIcon = findViewById(R.id.toolBar_info_icon);
         ImageView playIcon = findViewById(R.id.toolBar_game_icon);
         TextView textBarIcon = findViewById(R.id.toolBar_textView_icon);
-        textBarIcon.setText("About");
+        textBarIcon.setText(R.string.about);
 
         ImageView imageView = findViewById(R.id.about_imageView);
 
         String url = "https://lh3.googleusercontent.com/a-/AOh14Gh8RjVNSprmURVgo16F5zqzFVOcx68hXdMO7EDx=s192-c-rg-br100";
+
         Picasso.get().load(url).into(imageView);
+
+
+        //Glide.with(this).load("https://raw.githubusercontent.com/atlalbasha/Labb4/master/app/src/main/res/drawable-v24/hangman1.png").into(imageView);
+
+
 
         menuBarIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +69,4 @@ public class About extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
 }

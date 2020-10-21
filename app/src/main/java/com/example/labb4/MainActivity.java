@@ -1,14 +1,28 @@
 package com.example.labb4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+
+    Button en;
+    String language;
+
+    String engWord = "atlal";
+    String sveWord = "basha";
+
+    String EN_KEY;
+    String SV_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 gameIntent();
             }
         });
+
+        en = findViewById(R.id.sv_button);
+
+
     }
 
 
@@ -55,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 // Intent activity
     public void gameIntent(){
         Intent intent = new Intent(this, Game.class);
+        intent.putExtra(EN_KEY, engWord);
+        intent.putExtra(SV_KEY, engWord);
         startActivity(intent);
     }
     public void aboutIntent(){
@@ -67,4 +87,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+    public void setLanguage(String enSV) {
+        String languageToLoad = enSV; // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        this.setContentView(R.layout.activity_main);
+
+    }
+
+    public void svPressed(View view) {
+        setLanguage("sv");
+        Intent intent = new Intent(this, Game.class);
+        intent.putExtra(SV_KEY, sveWord);
+    }
+
+    public void enPressed(View view) {
+        setLanguage("en");
+        Intent intent = new Intent(this, Game.class);
+        intent.putExtra(EN_KEY, engWord);
+    }
+
+    public void darkMode(View view) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+    }
+
+    public void LightMode(View view) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
 }

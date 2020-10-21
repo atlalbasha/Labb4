@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class Game extends AppCompatActivity {
@@ -29,33 +31,29 @@ public class Game extends AppCompatActivity {
      String WON_MSG = "YOU WON!";
      String LOSE_MSG = "GAME OVER";
 
+
     String aWord;
     String aWordString;
     String userInput;
     int livesRecorder = 7;
 
+    String engWord;
+    String sveWord;
 
     ArrayList<String> aWordsListArray;
     char[] aWordCharList;
     char[] answerCharList;
     ArrayList<String> recordLetterList;
 
-  /* void revealLetter(String c){
-        int letter = aWord.indexOf(c);
-        while (letter >= 0){
-            aWordCharList[letter] = aWord.charAt(letter);
-            letter = aWord.indexOf(letter, letter +1);
-        }
-        aWordString = String.valueOf(aWordCharList);
-        }
-        */
 
-    void randomWordToGuess() {
+    public void randomWordToGuess() {
         aWordsListArray = new ArrayList<>();
         aWordsListArray.add("atlal");
         aWordsListArray.add("basha");
+
         // get a random word from Array and add it to aWord
         aWord = aWordsListArray.get((int) (Math.random() * aWordsListArray.size()));
+
         // add aWord to aWordCharList to convert it to word to char word.
         aWordCharList = aWord.toCharArray();
         // create new char array = aWordCharList length
@@ -65,57 +63,10 @@ public class Game extends AppCompatActivity {
         }
     }
 
-   /* void revealLetterInWord(String userInput) {
-        boolean found = false;
-        for (int i = 0; i < aWordCharList.length; i++) {
-            if (userInput.charAt(0) == aWordCharList[i]) {
-                answerCharList[i] = aWordCharList[i];
-                String changeLetter = " ";
-                for (char c : answerCharList) {
-                    changeLetter += c + " ";
-                }
-                wordToGuess_textView.setText(changeLetter);
-                aWordString = String.valueOf(answerCharList);
-                found = true;
-            }
-        }
-        if (!found) {
-            livesRecorder--;
-            //Picasso.get().load(R.drawable.hangman6).into(hangmanImage);
-            //hangmanImage.setImageResource(R.drawable.hangman+livesRecorder);
-
-            if (livesRecorder < 1) wordToGuess_textView.setText("GAME OVER");
-        }
-
-        if (aWordString.equals(aWord)) wordToGuess_textView.setText("YOU WON");
-    }
-
-  /*  void found(){
-        for (int i = 0; i < aWordCharList.length; i++) {
-            if (userInput.charAt(0) == aWordCharList[i]) {
-                answerCharList[i] = aWordCharList[i];
-                String changeLetter = " ";
-                for (char c : answerCharList) {
-                    changeLetter += c + " ";
-                }
-                wordToGuess_textView.setText(changeLetter);
-                aWordString = String.valueOf(answerCharList);
-                return;
-            }
-        }
-    }
-    void notFound(){
-        for (int i = 0; i < aWordCharList.length; i++) {
-            if (userInput.charAt(0) != aWordCharList[i]) livesRecorder--;
-            return;
-        }
-    }
-
-   */
 
 
 
-    void printUnderscore() {
+    public void printUnderscore() {
         for (int i = 0; i < answerCharList.length; i++) {
             if (answerCharList[i] == '_') {
                 wordToGuess_textView.append(" _");
@@ -157,11 +108,18 @@ public class Game extends AppCompatActivity {
         //game
         wordToGuess_textView = findViewById(R.id.word_to_guees);
         lives_textView = findViewById(R.id.lives);
-        lives_textView.setText("lives: " + livesRecorder);
+        lives_textView.setText(getString(R.string.liv)+livesRecorder);
         userInput_editText = findViewById(R.id.editText);
         guess_button = findViewById(R.id.guess_button);
         letterGuessed_textView = findViewById(R.id.letter_textView);
         hangmanImage = findViewById(R.id.hangman_imageView);
+
+        Intent intent = getIntent();
+        engWord = intent.getStringExtra("EN_KEY");
+        sveWord = intent.getStringExtra("SV_KEY");
+
+
+
 
         //Picasso.get().load(R.drawable.hangman7).into(hangmanImage);
         //readState();
@@ -238,7 +196,7 @@ public class Game extends AppCompatActivity {
     public void endIntent(String result){
         Intent intent = new Intent(this, End.class);
         intent.putExtra("END",result);
-        intent.putExtra("aWord",aWord);
+        intent.putExtra("aWord","The Word was: "+aWord);
         intent.putExtra("lives",""+livesRecorder);
 
 
@@ -274,10 +232,13 @@ public class Game extends AppCompatActivity {
         if (livesRecorder < 1) endIntent(LOSE_MSG);
             //wordToGuess_textView.setText("GAME OVER");
     }
+
     private void updateImg(int number) {
-        int resImg = getResources().getIdentifier("hangman" + number, "drawable",
-                getPackageName());
-        hangmanImage.setImageResource(resImg);
+        Glide.with(this).load("https://raw.githubusercontent.com/atlalbasha/Labb4/master/app/src/main/res/drawable-v24/hangman"+number+".png").into(hangmanImage);
+
+        //int resImg = getResources().getIdentifier("hangman" + number, "drawable",
+            //    getPackageName());
+       // hangmanImage.setImageResource(resImg);
     }
 
 
@@ -296,15 +257,6 @@ public class Game extends AppCompatActivity {
     }
 
    */
-
-
-
-
-
-
-
-
-
 
 }
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Labb4</string>
+    <string name="game">Spel</string>
+    <string name="menu">Meny</string>
+    <string name="hangman">HangMan Spel</string>
+    <string name="play">Spela</string>
+    <string name="about">Om</string>
+
+    <string name="programmed_by_atlal">Programmerad av Atlal</string>
+
+
+
+    <string name="lives">Antal försök kvar:</string>
+    <string name="guess">Gissa</string>
+    <string name="guess_a_letter">Gissa en bokstäv</string>
+
+
+    <string name="lives_is">Liv:</string>
+    <string name="liv">Liv:</string>
+
+
+    <string name="guess_a_char">Guess a char</string>
+
+
+
+    <string name="the_word_was">Ordet var:</string>
+
+</resources>
