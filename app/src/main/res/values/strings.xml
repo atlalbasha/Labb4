@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Labb4</string>
+    <string name="menu">Menu</string>
+    <string name="programmed_by_atlal">Programmed by Atlal</string>
+    <string name="game">Game</string>
+    <string name="hangman">HangMan</string>
+    <string name="about">About</string>
+    <string name="play">Play</string>
+    <string name="lievs_7">lievs: 7</string>
+    <string name="guess">Guess</string>
+    <string name="lives_7">lives: 7</string>
+    <string name="guess_a_char">Guess a char</string>
+    <string name="guess_a_letter">Guess a letter</string>
+
+    <string name="lives_is">Lives is:</string>
+    <string name="the_word_was">The Word was:</string>
+
+</resources>
