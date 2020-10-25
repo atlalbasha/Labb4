@@ -2,7 +2,6 @@ package com.example.labb4;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,14 +14,15 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button en;
-    String language;
+    Button enButton;
+    Button svButton;
 
-    String engWord = "atlal";
-    String sveWord = "basha";
+    public static String LANGUAGE_KEY_SV;
+    public static String LANGUAGE_KEY_EN;
+    private boolean EN_KEY;
+    private boolean SV_KEY;
 
-    String EN_KEY;
-    String SV_KEY;
+    // i keep too many comment methods/ code in program to help me later when i want to to use some of them..
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,24 +57,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        en = findViewById(R.id.sv_button);
+        enButton = findViewById(R.id.en_button);
+        svButton = findViewById(R.id.sv_button);
 
 
     }
 
 
-// Button pressed in menu activity.
+    // Button pressed in menu activity.
     public void play_button_pressed(View view) {
         gameIntent();
     }
     public void about_button_pressed(View view) {
         aboutIntent();
     }
-// Intent activity
+
+    // Intent activity
     public void gameIntent(){
         Intent intent = new Intent(this, Game.class);
-        intent.putExtra(EN_KEY, engWord);
-        intent.putExtra(SV_KEY, engWord);
+        if (EN_KEY) {
+            intent.putExtra(LANGUAGE_KEY_EN,"english");
+        }else {
+            intent.putExtra(LANGUAGE_KEY_SV,"svenska");
+        }
+        if (SV_KEY) {
+            intent.putExtra(LANGUAGE_KEY_SV,"svenska");
+
+        }else {
+            intent.putExtra(LANGUAGE_KEY_EN,"english");
+        }
         startActivity(intent);
     }
     public void aboutIntent(){
@@ -86,14 +97,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
-
-
-
+    // change language method.
     public void setLanguage(String enSV) {
-        String languageToLoad = enSV; // your language
+        String languageToLoad = enSV; // enSV type of language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -101,27 +107,24 @@ public class MainActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
         this.setContentView(R.layout.activity_main);
-
     }
-
+    // change language button pressed.
     public void svPressed(View view) {
         setLanguage("sv");
-        Intent intent = new Intent(this, Game.class);
-        intent.putExtra(SV_KEY, sveWord);
+        SV_KEY = true;
     }
-
     public void enPressed(View view) {
         setLanguage("en");
-        Intent intent = new Intent(this, Game.class);
-        intent.putExtra(EN_KEY, engWord);
+        EN_KEY = true;
     }
 
+    // dark and light mode.
     public void darkMode(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
     }
-
     public void LightMode(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
+
 }
